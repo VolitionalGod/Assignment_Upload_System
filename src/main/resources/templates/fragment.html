@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- START PAGE SIDEBAR -->
+<div class="page-sidebar" th:fragment="page-sidebar">
+    <!-- START X-NAVIGATION -->
+    <ul class="x-navigation">
+        <li class="xn-logo">
+            <a href="/index">Portal</a>
+            <a href="#" class="x-navigation-control"></a>
+        </li>
+        <li class="xn-profile">
+            <a href="#" class="profile-mini">
+                <img src="/assets/images/users/no-image.jpg"/>
+            </a>
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="/assets/images/users/no-image.jpg" />
+                </div>
+                <div class="profile-data">
+                    <div class="profile-data-name"><div sec:authentication="name"></div></div>
+                </div>
+            </div>
+        </li>
+        <li class="active">
+            <a href="index"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
+        </li>
+        <li sec:authorize="hasAnyRole('ROLE_ADMIN')" class="xn-title">Admin Panel</li>
+        <li class="xn-openable">
+            <a  sec:authorize="hasAnyRole('ROLE_ADMIN')" href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Masters</span></a>
+            <ul>
+                <li class="xn-openable">
+                    <a href="#"><span class="fa fa-clock-o"></span> Academic Year</a>
+                    <ul>
+                        <li><a href="add-academic-year"><span class="fa fa-align-center"></span> Add Academic Year</a></li>
+                        <li><a href="list-academic-year"><span class="fa fa-align-justify"></span> List Academic Year</a></li>
+                    </ul>
+                </li>
+                <li class="xn-openable">
+                    <a href="#"><span class="fa fa-clock-o"></span> Course</a>
+                    <ul>
+                        <li><a href="add-course"><span class="fa fa-align-center"></span> Add Course</a></li>
+                        <li><a href="list-course"><span class="fa fa-align-justify"></span> List Course</a></li>
+                    </ul>
+                </li>
+                <li class="xn-openable">
+                    <a href="#"><span class="fa fa-clock-o"></span> Subject</a>
+                    <ul>
+                        <li><a href="add-subject"><span class="fa fa-align-center"></span> Add Subject</a></li>
+                        <li><a href="list-subject"><span class="fa fa-align-justify"></span> List Subject</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li sec:authorize="hasAnyRole('ROLE_ADMIN')" class="xn-openable">
+            <a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">Users</span></a>
+            <ul>
+                <li><a href="add-user">Add User</a></li>
+                <li><a href="list-user">List Users</a></li>
+                <!-- <li><a href="approve-user">Approve Signup Request</a></li> -->
+            </ul>
+        </li>
+
+        <!--<li class="xn-title">Assignments</li>-->
+        <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_STUDENT', 'ROLE_MODERATOR')" class="xn-openable">
+            <a href="#"><span class="fa fa-file-text-o"></span> <span class="xn-text">Assignment</span></a>
+            <ul>
+                <li><a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_STUDENT')" href="upload-assignment">Upload Assignment</a></li>
+                <li><a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')" href="evaluate-assignment">Evaluate Assignment</a></li>
+            </ul>
+        </li>
+
+
+
+
+    </ul>
+    <!-- END X-NAVIGATION -->
+</div>
+<!-- END PAGE SIDEBAR -->
+
+
+<!-- START X-NAVIGATION VERTICAL -->
+<ul class="x-navigation x-navigation-horizontal x-navigation-panel" th:fragment="page-topbar">
+    <!-- TOGGLE NAVIGATION -->
+    <li class="xn-icon-button">
+        <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+    </li>
+    <!-- END TOGGLE NAVIGATION -->
+    <!-- SIGN OUT -->
+    <li class="xn-icon-button pull-right">
+        <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>
+    </li>
+    <!-- END SIGN OUT -->
+</ul>
+<!-- END X-NAVIGATION VERTICAL -->
+
+<!-- MESSAGE BOX-->
+<div class="message-box animated fadeIn" data-sound="alert" id="mb-signout" th:fragment="page-signout">
+    <div class="mb-container">
+        <div class="mb-middle">
+            <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
+            <div class="mb-content">
+                <p>Are you sure you want to log out?</p>
+                <p>Press No if you want to continue work. Press Yes to logout current user.</p>
+            </div>
+            <div class="mb-footer">
+                <div class="pull-right">
+                    <a href="javascript: document.logoutForm.submit()" class="btn btn-success btn-lg">Yes</a>
+                    <button class="btn btn-default btn-lg mb-control-close">No</button>
+                    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                        <input hidden type="submit" value="Sign Out"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MESSAGE BOX-->
+
+
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+--liquibase formatted sql
+
+--changeset tubel.john:courses_cs_1
+CREATE TABLE IF NOT EXISTS `courses` (
+  `COURSE_ID` int NOT NULL AUTO_INCREMENT,
+  `COURSE_CODE` varchar(100) NOT NULL,
+  `COURSE_DESC` varchar(100) NOT NULL,
+  `ACTIVE` TINYINT NOT NULL DEFAULT 1,
+  `LAST_MODIFIED_DATE` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`COURSE_ID`)
+);
+
+

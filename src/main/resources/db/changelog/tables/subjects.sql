@@ -1,0 +1,11 @@
+--liquibase formatted sql
+
+--changeset tubel.john:subjects_cs_1
+CREATE TABLE IF NOT EXISTS `subjects` (
+  `SUBJECT_ID` int  NOT NULL AUTO_INCREMENT,
+  `SUBJECT_CODE` varchar(100) NOT NULL,
+  `SUBJECT_DESC` varchar(100) NOT NULL,
+  `ACTIVE` TINYINT NOT NULL DEFAULT 1,
+  `LAST_MODIFIED_DATE` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`SUBJECT_ID`)
+);
